@@ -1,0 +1,93 @@
+- name: SG rules
+  sg:
+  - expense-dev-db
+  - expense-dev-backend
+  - expense-dev-frontend
+  # - expense-dev-bastion
+  - expense-dev-ansible
+  - expense-dev-alb
+  - expense-dev-vpn
+
+  expense-dev-vpn:
+  - name: vpn_public
+    desc: vpn accepting traffic from public
+    source: public
+    port: 943,443,22,1194
+
+  db:
+  - name: db_backend
+    desc: db accepting the backend traffic
+    source: backend
+    port: 3306
+  # - name: db_bastion
+  #   desc: db accepting the bastion traffic
+  #   source: bastion
+  #   port: 3306
+  - name: db_vpn
+    desc: db accepting the vpn traffic
+    source: vpn
+    port: 3306
+
+  backend:
+  - name: backend_alb
+    desc: backend accepting traffic from application load balancer(alb)
+    source: alb
+    port: 8080
+  # - name: backend_bastion
+  #   desc: backend accepting bastion traffic
+  #   source: bastion
+  #   port: 22
+  - name: backend_vpn_ssh
+    desc: backend accepting vpn_ssh traffic
+    source: vpn
+    port: 22
+  - name: backend_vpn_http
+    desc: backend accepting vpn_http traffic
+    source: vpn
+    port: 8080
+  
+
+  frontend:
+  - name: frontend_public
+    desc: frontend accepting traffic from public
+    source: public
+    port: 80
+
+  - name: frontend_vpn
+    desc: frontend accepting traffic from vpn
+    source: vpn
+    port: 22
+  - name: frontend_web_alb
+    desc: frontend accepting traffic from web_alb
+    source: web_alb
+    port: 80
+  # - name: frontend_bastion
+  #   desc: frontend accepting bastion traffic
+  #   source: bastion
+  #   port: 22
+  
+  # bastion:
+  # - name: bastion_public
+  #   desc: bastion accepting public traffic
+  #   source: public
+  #   port: 22
+
+  alb:
+  - name: alb_vpn
+    desc: alb accepting traffic from vpn
+    source: vpn
+    port: 80
+  - name: alb_frontend
+    desc: alb accepting traffic from frontend
+    source: frontend
+    port: 80
+
+  web_alb:
+  - name: web_alb_public
+    desc: web_alb accepting traffic from public
+    source: public
+    port: 80
+  - name: web_alb_public_https
+    desc: web_alb accepting traffic from public
+    source: public
+    port: 443
