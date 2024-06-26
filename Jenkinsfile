@@ -29,8 +29,7 @@ pipeline {
        sh 'echo this is deploy'
             }
         }
-
-     
+   }
 
       post{
         always{
@@ -44,4 +43,4 @@ pipeline {
         }
       }
     }
-}
+
