@@ -36,6 +36,7 @@ pipeline {
       post{
         always{
             echo 'I will always say hello again'
+            deleteDir()
         }
         success{
             echo 'I will say hello only when success'
