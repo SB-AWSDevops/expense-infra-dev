@@ -32,7 +32,7 @@ pipeline {
             
             }
         }
-   }
+   
       stage('Plan') { 
         when{
             expression{
@@ -84,8 +84,8 @@ pipeline {
             }
             }
         }
-   
-}
+   }
+
       post{
         always{
             echo 'I will always say hello again'
@@ -99,4 +99,4 @@ pipeline {
         }
       }
 
-
+}
