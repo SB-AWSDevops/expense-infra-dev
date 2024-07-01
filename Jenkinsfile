@@ -67,15 +67,11 @@ pipeline {
       
           steps {
             sh """
-                  // Define the list of directories
-                    def directories = ['10-cdn', '08-web-alb', '07-0.1-acm', '06-alb', '05-vpn', '04-db', '02-sg', '01-vpc']
+                 def directories = ['10-cdn', '08-web-alb', '07-0.1-acm', '06-alb', '05-vpn', '04-db', '02-sg', '01-vpc']
 
-                    // Iterate through each directory
                     for (String dirName : directories) {
                         // Change to the directory and execute terraform destroy
-                        dir(dirName) {
-                            sh "terraform destroy -auto-approve"
-                        }
+                        sh "cd ${dirName} && terraform destroy -auto-approve"
                     }
              """
             }
