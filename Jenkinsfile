@@ -16,18 +16,23 @@ pipeline {
 
    stages {
       stage('Init') { 
-         when{
-            expression{
-                params.action == 'Apply'
-            }
-        }
+         
           steps {
-            sh """
-                cd 01-vpc
-                terraform init -reconfigure
-            """
+            script{
+            def directories = ['10-cdn', '08-web-alb', '07-0.1-acm', '06-alb', '05-vpn', '04-db', '02-sg', '01-vpc']
+
+                    for (String dirName : directories) {
+                        // Change to the directory
+                        dir(dirName) {
+                            // Initialize Terraform (if not already initialized)
+                            sh "terraform init 
+                        }
+                    }
+            }
+            
             }
         }
+   }
       stage('Plan') { 
         when{
             expression{
