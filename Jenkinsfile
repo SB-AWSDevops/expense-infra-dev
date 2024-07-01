@@ -66,14 +66,17 @@ pipeline {
         }
       
           steps {
-            sh """
-                 def directories = ['10-cdn', '08-web-alb', '07-0.1-acm', '06-alb', '05-vpn', '04-db', '02-sg', '01-vpc']
+            script{
+             def directories = ['10-cdn', '08-web-alb', '07-0.1-acm', '06-alb', '05-vpn', '04-db', '02-sg', '01-vpc']
 
                     for (String dirName : directories) {
-                        // Change to the directory and execute terraform destroy
-                        sh "cd ${dirName} && terraform destroy -auto-approve"
+                        // Execute terraform destroy inside the directory
+                        sh """
+                            cd ${dirName}
+                            terraform destroy -auto-approve
+                        """
                     }
-             """
+            }
             }
         }
    }
