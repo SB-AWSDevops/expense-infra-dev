@@ -25,7 +25,7 @@ pipeline {
                         // Change to the directory
                         dir(dirName) {
                             // Initialize Terraform (if not already initialized)
-                            sh "terraform init 
+                            sh """terraform init"""
                         }
                     }
             }
