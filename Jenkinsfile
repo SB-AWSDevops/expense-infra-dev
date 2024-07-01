@@ -84,7 +84,7 @@ pipeline {
             }
             }
         }
-   }
+   
 
       post{
         always{
@@ -98,5 +98,5 @@ pipeline {
             echo 'I will say hello only when failure'
         }
       }
-    }
+}
 
