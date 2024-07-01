@@ -62,8 +62,11 @@ pipeline {
       
           steps {
             sh """
-                for i in 10-cdn/ 08-web-alb/ 07-0.1-acm/ 06-alb/ 05-vpn/ 04-db/ 02-sg/ 01-vpc/ ; do cd $i ; terraform destroy -lock=false ; cd .. ; done
-
+                  def directories = ['10-cdn', '08-web-alb', '07-0.1-acm', '06-alb', '05-vpn', '04-db', '02-sg', '01-vpc']
+                    for (dir in directories) {
+                                            dir("${dir}") {
+                                                sh "terraform destroy -auto-approve"
+                                            }
              """
             }
         }
