@@ -16,6 +16,12 @@ pipeline {
 
    stages {
       stage('Init') { 
+
+         when{
+            expression{
+                params.action == 'Apply'
+            }
+        }
          
           steps {
             script{
